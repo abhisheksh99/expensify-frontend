@@ -134,7 +134,7 @@ const Income = () => {
             window.URL.revokeObjectURL(url);
             toast.success("Download income details successfully");
         }catch(error) {
-            console.error('Error downloading income details:', error);
+            console.error('Error downloading income details:', error.message);
             toast.error(error.response?.data?.message || "Failed to download income");
         }
     }

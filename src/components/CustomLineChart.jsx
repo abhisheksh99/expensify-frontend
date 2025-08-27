@@ -37,7 +37,7 @@ const CustomLineChart = ({ data }) => {
                     <hr className="my-1 border-gray-200" />
                     {/* Display the total amount for the date */}
                     <p className="text-sm text-gray-700 font-bold mb-2">
-                        Total: <span className="text-purple-800">&#8377;{addThousandsSeparator(dataPoint.totalAmount)}</span>
+                        Total: <span className="text-purple-800">${addThousandsSeparator(dataPoint.totalAmount)}</span>
                     </p>
 
                     {/* Iterate over the newly grouped categories for a consolidated view */}
