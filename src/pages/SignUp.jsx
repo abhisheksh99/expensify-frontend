@@ -8,11 +8,14 @@ import Header from "../components/Header.jsx";
 import axiosConfig from "../utils/axiosConfigs.js";
 import { API_ENDPOINTS } from "../utils/apiEndpoints.js";
 import toast from "react-hot-toast";
+import ProfilePhotoSelector from "../components/ProfilePhotoSelector.jsx";
+import uploadProfileImage from "../utils/uploadProfileImage.js"; 
 
 const SignUp = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [profilePhoto, setProfilePhoto] = useState(null); 
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -43,12 +46,19 @@ const SignUp = () => {
 
     setError("");
 
-    // Signup API call
     try {
+      let profileImageUrl = ""; 
+      
+      if (profilePhoto) {
+        const imageUrl = await uploadProfileImage(profilePhoto);
+        profileImageUrl = imageUrl || "";
+      }
+
       const response = await axiosConfig.post(API_ENDPOINTS.REGISTER, {
         fullName,
         email,
-        password
+        password,
+        profileImageUrl // ✅ use uploaded image URL
       });
 
       if (response.status === 201) {
@@ -67,7 +77,6 @@ const SignUp = () => {
     <div className="h-screen w-full flex flex-col">
       <Header />
       <div className="flex-grow w-full relative flex items-center justify-center overflow-hidden">
-        {/* Background image with blur */}
         <img
           src={assets.login_bg}
           alt="Background"
@@ -85,7 +94,10 @@ const SignUp = () => {
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="flex justify-center mb-6">
-                {/* ProfilePhotoSelector can be added here */}
+                <ProfilePhotoSelector
+                  image={profilePhoto}
+                  setImage={setProfilePhoto}
+                />
               </div>
 
               <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
