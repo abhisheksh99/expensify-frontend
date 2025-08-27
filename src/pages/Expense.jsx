@@ -1,9 +1,15 @@
-import React from 'react'
+import React from 'react';
+import Dashboard from "../components/Dashboard";
+import { useUser } from "../hooks/useUser";
 
 const Expense = () => {
-  return (
-    <div>Expense</div>
-  )
-}
+  useUser();
 
-export default Expense
+  return (
+    <Dashboard activeMenu="Expense">
+      {/* Expense page content */}
+    </Dashboard>
+  );
+};
+
+export default Expense;
